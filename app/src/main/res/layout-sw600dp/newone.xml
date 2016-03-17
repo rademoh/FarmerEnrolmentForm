@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbackground">
+    <!-- Header aligned to top -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_action_bar_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="#445523"
+        android:minHeight="160dp"
+        android:elevation="10dp"
+        >
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pgone"
+            />
+    </android.support.v7.widget.Toolbar>
+
+    <!-- Footer aligned to bottom -->
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="35dp"
+     >
+
+        <ImageButton
+            android:id="@+id/next"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:background="@drawable/button" />
+    </LinearLayout>
+
+
+    <!-- Scrollable Content below header and above footer -->
+    <ScrollView
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/my_action_bar_toolbar"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
+
+        <!-- Content will go here -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personal Details ::"
+                android:id="@+id/personal"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="3dp"
+                android:layout_marginTop="25dp"
+
+                />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etitle"
+                android:entries="@array/title"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:background="@drawable/dropdown"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/esurname"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/textfieldimage"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:singleLine="true"
+
+
+                android:hint="Surname"
+                android:textColorHint="#445523"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/efirstname"
+                android:background="@drawable/textfieldimage"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:singleLine="true"
+
+                android:hint="Firstname"
+                android:textColorHint="#445523"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/emiddlename"
+                android:background="@drawable/textfieldimage"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:singleLine="true"
+
+                android:hint="Middlename"
+                android:textColorHint="#445523"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dob"
+                android:background="@drawable/textfieldimage"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:singleLine="true"
+                android:hint="Date of Birth"
+                android:textColorHint="#445523" />
+
+            <RadioGroup
+                android:id="@+id/egender"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:background="@drawable/radiobutton"
+                android:orientation="horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+
+                <RadioButton
+                    android:id="@+id/radioAndroid1"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rbtn_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Male"
+                    android:textColor="@drawable/rbtn_textcolor_selector" />
+
+                <RadioButton
+                    android:id="@+id/radioiPhone1"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rbtn_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Female"
+                    android:textColor="@drawable/rbtn_textcolor_selector" />
+
+
+            </RadioGroup>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etelephone"
+                android:background="@drawable/textfieldimage"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:hint="Mobile Number"
+                android:singleLine="true"
+
+                android:inputType="number"
+                android:textColorHint="#445523"
+                android:maxLength="10" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etelephone2"
+                android:background="@drawable/textfieldimage"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:hint="Mobile Number 2"
+                android:singleLine="true"
+
+                android:inputType="number"
+                android:textColorHint="#445523"
+                android:maxLength="11" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/eeducation"
+                android:entries="@array/education"
+                android:layout_marginTop="7dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:background="@drawable/dropdown"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

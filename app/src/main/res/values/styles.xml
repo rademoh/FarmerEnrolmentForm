@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+    </style>
+  <!--  <style name ="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <style name ="AppTheme.Base" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+
+        <item name="android:spinnerDropDownItemStyle">@style/mySpinnerItemStyle1</item>
+        <item name="android:spinnerItemStyle">@style/mySpinnerItemStyle</item>
+        <item name="android:alertDialogStyle">@style/mySpinnerItemStyle1</item>
+        <item name="android:textColorAlertDialogListItem">@style/mySpinnerItemStyle1</item>
+        <item name="android:dialogMessage">@style/mySpinnerItemStyle1</item>
+        <item name="android:dialogPreferenceStyle">@style/mySpinnerItemStyle1</item>
+
+    </style>
+    <style name="CustomActionBarTheme"
+        parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:spinnerDropDownItemStyle">@style/mySpinnerItemStyle1</item>
+        <item name="android:spinnerItemStyle">@style/mySpinnerItemStyle</item>
+
+
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/green</item>
+        <!-- Support library compatibility -->
+        <item name="background">@color/green</item>
+    </style>
+
+
+    <style name="TitleBar">
+        <item name="android:orientation">horizontal</item>
+
+        <item name="android:background">#000</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/whitetransparent</item>
+
+    </style>
+    <style name="mySpinnerItemStyle1" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+</resources>

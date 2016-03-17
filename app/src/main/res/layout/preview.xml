@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbackground">
+    <!-- Header aligned to top -->
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center" >
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="25dp"
+            android:background="@drawable/detailheader" />
+    </RelativeLayout>
+
+    <!-- Footer aligned to bottom -->
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="35dp"
+     >
+
+        <ImageButton
+            android:id="@+id/back4"
+            android:layout_width="67dp"
+            android:layout_height="60dp"
+            android:background="@drawable/previous"
+            />
+
+        <ImageButton
+            android:id="@+id/next4"
+            android:layout_width="230dp"
+            android:layout_height="60dp"
+            android:onClick="submitForm"
+            android:background="@drawable/submitbutton" />
+    </LinearLayout>
+
+
+    <!-- Scrollable Content below header and above footer -->
+    <ScrollView
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <!-- Content will go here -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:gravity="right">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/imageView2"
+                    android:layout_gravity="right" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Surname:"
+                android:id="@+id/textViwq"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+
+                android:layout_marginTop="25dp"  />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Firstname:"
+                android:id="@+id/firstname"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+
+                android:layout_marginTop="1dp"  />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Middlename:"
+                android:id="@+id/middlename"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+
+                android:layout_marginTop="1dp"  />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender:"
+                android:id="@+id/gender"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+
+                android:layout_marginTop="1dp"  />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile Number:"
+                android:id="@+id/mobilenumber"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+
+                android:layout_marginTop="1dp"  />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State:"
+                android:id="@+id/state"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+
+                android:layout_marginTop="1dp"  />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LGA:"
+                android:id="@+id/LGA"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+
+                android:layout_marginTop="1dp"  />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ward:"
+                android:id="@+id/ward"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+
+                android:layout_marginTop="1dp"  />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

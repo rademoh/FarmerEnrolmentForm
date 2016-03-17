@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Liberia Enum App</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Verify Barcode</string>
+    <string name="action_report">Data Status</string>
+
+    <string name="surname">* Surname</string>
+    <string name="firstname">* First name</string>
+    <string name="middlename">* Middle name</string>
+    <string name="education">* Level of Education</string>
+    <string name="state">* State</string>
+    <string name="lga">* L.G.A</string>
+    <string name="gender">* Gender</string>
+    <string name="telephone">* Mobile Number</string>
+    <string name="ward">* Ward</string>
+    <string name="village">* Village</string>
+    <string name="language">* Preferred Language</string>
+    <string name="farmerscrop">  Farmer Crop ::</string>
+    <string name="cropproduction"> Crop Production Details ::</string>
+    <string name="farmsize">* Farm Size (measure in Hectare)</string>
+    <string name="farmerlocation">* Farmer Location</string>
+    <string name="agricservices"> What Agric Services Do You Require ::</string>
+    <string name="farmersgroupdetails"> Farmer Group Details ::</string>
+    <string name="farmersgroup">* Farmer Group</string>
+    <string name="groupname">* Group Name</string>
+    <string name="groupnameleader">*  Group Leader Name</string>
+    <string name="groupleaderphone">* Group Leader Phone</string>
+    <string name="bankdetails">  Bank Details ::</string>
+    <string name="bankname">*  Bank Name</string>
+    <string name="bankaccount">*  Bank Account</string>
+    <string name="bankbranch">*  Bank Branch</string>
+    <string name="services">  Services ::</string>
+    <string name="mobilewallet"> Require Agric services using the mobile wallet platform</string>
+    <string name="walletcard"> Require wallet card</string>
+    <string name="txt_scan_qr_code">Scan QR</string>
+    <string name="member_question">Are you a member of ::</string>
+    <string name="action_sync">Sync</string>
+    <string name="action_exit">Exit</string>
+
+    <string-array name="title">
+        <item>[Select Title]</item>
+        <item>Mr</item>
+        <item>Miss</item>
+        <item>Mrs</item>
+        <item>Master</item>
+        <item>Ms</item>
+    </string-array>
+
+    <string-array name="maritalstatus">
+        <item>[Select Marital Status]</item>
+        <item>Married</item>
+        <item>Single</item>
+        <item>Divorced</item>
+        <item>Widowed</item>
+        <item>Separated</item>
+    </string-array>
+    <string-array name="employmentstatus">
+        <item>[Select Employment Status]</item>
+        <item>Employed</item>
+        <item>Unemployed</item>
+        <item>Pensioner</item>
+        <item>Self Employed</item>
+
+    </string-array>
+
+    <string-array name="banks">
+        <item>No</item>
+        <item>Guaranty Trust Bank</item>
+        <item>Diamond Bank</item>
+        <item>FCMB</item>
+        <item>UBA</item>
+        <item>Union Bank</item>
+        <item>Zenith Bank</item>
+        <item>Skye Bank</item>
+        <item>EcoBank</item>
+        <item>First Bank</item>
+        <item>Keystone Bank</item>
+        <item>Wema Bank Plc</item>
+        <item>Enterprise Bank Plc</item>
+        <item>Fidelity Bank</item>
+        <item>Unity Bank</item>
+
+    </string-array>
+
+
+    <string-array name = "mobilewallet">
+        <item> ---Select--- </item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name = "walletcard">
+        <item> ---Select--- </item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name = "gender">
+        <item> ---Select--- </item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name = "language">
+        <item>[Select Preferred Language]</item>
+        <item> English</item>
+        <item> Kpelleh</item>
+        <item> Bassa</item>
+        <item> Vai</item>
+        <item> Gola</item>
+        <item> Grebo</item>
+        <item> Kra</item>
+        <item> Lorma</item>
+        <item> Kru</item>
+    </string-array>
+
+    <string-array name = "education">
+        <item>[Select Education]</item>
+        <item>None</item>
+        <item>Primary</item>
+        <item>Secondary</item>
+        <item>NCE</item>
+        <item>HND</item>
+        <item>ND</item>
+        <item>Degree</item>
+        <item>Postgraduate</item>
+       </string-array>
+
+
+
+
+
+    <string-array name="lga_empty">
+        <item>[Select LGA]</item>
+    </string-array>
+
+    <string-array name="member_group">
+        <item>Cooperative</item>
+        <item>Field based organization FBO</item>
+        <item>Community based organisation CBO</item>
+        <item>Others</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="primarycrops">
+
+        <item>[Select Primary Crop]</item>
+        <item>Corn</item>
+        <item>Rice</item>
+        <item>Cocoayam</item>
+        <item>Vegetables</item>
+        <item>Yams</item>
+        <item>Cassava</item>
+        <item>Soybeans</item>
+        <item>Cocoa</item>
+        <item>Sorghum</item>
+        <item>Cotton</item>
+        <item>Oilpalm</item>
+        <item>Tomatoes</item>
+        <item>Ginger</item>
+        <item>Sweet Potato</item>
+        <item>Sesame</item>
+        <item>Wheat</item>
+        <item>Groundnut</item>
+        <item>Cashew</item>
+        <item>Sugar-Cane</item>
+
+    </string-array>
+
+
+</resources>

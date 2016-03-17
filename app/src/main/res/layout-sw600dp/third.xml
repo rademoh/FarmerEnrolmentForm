@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbackground">
+    <!-- Header aligned to top -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_action_bar_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="#445523"
+        android:minHeight="160dp"
+        android:elevation="10dp"
+        >
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pgthree"
+            />
+    </android.support.v7.widget.Toolbar>
+
+    <!-- Footer aligned to bottom -->
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="35dp"
+     >
+
+        <ImageButton
+            android:id="@+id/back2"
+            android:layout_width="82dp"
+            android:layout_height="75dp"
+            android:background="@drawable/previous"
+            />
+
+        <ImageButton
+            android:id="@+id/next2"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:background="@drawable/button" />
+    </LinearLayout>
+
+
+    <!-- Scrollable Content below header and above footer -->
+    <ScrollView
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/my_action_bar_toolbar"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
+
+        <!-- Content will go here -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/farmerscrop"
+                android:id="@+id/farmerscrop"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="3dp"
+                android:layout_marginTop="25dp"
+
+                />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/primary_crop"
+                android:entries="@array/primarycrops"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:background="@drawable/dropdown"/>
+
+            <com.example.rabiu.farmerenrolmentliberia.MultiSelectionSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/efarmercrop"
+                android:padding="10dp"
+                android:background="@drawable/textfieldimage"
+
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Livestock ::"
+                android:id="@+id/farmerslivestock"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="3dp"
+                android:layout_marginTop="7dp"
+
+                />
+
+            <com.example.rabiu.farmerenrolmentliberia.MultiSelectionSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/efarmerlivestock"
+                android:padding="10dp"
+                android:background="@drawable/textfieldimage"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fisheries ::"
+                android:id="@+id/farmersfisheries"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="3dp"
+                android:layout_marginTop="7dp"
+
+                />
+
+            <com.example.rabiu.farmerenrolmentliberia.MultiSelectionSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/efarmersfisheries"
+                android:padding="10dp"
+                android:background="@drawable/textfieldimage"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cropproduction"
+                android:id="@+id/textViewt"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="3dp"
+                android:layout_marginTop="7dp"/>
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/efarmsize"
+                android:background="@drawable/textfieldimage"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:singleLine="true"
+
+                android:hint="Farm Size (measure in Hectare)"
+                android:textColorHint="#445523"
+                android:inputType="number" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/efarmlocation"
+                android:background="@drawable/textfieldimage"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:singleLine="true"
+
+                android:hint="Farm Location"
+                android:textColorHint="#445523"/>
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbackground">
+    <!-- Header aligned to top -->
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="130dp"
+        android:gravity="center" >
+
+        <ImageView
+            android:layout_width="340dp"
+            android:layout_height="40dp"
+            android:background="@drawable/barcode" />
+    </RelativeLayout>
+    <!-- Content will go here -->
+    <LinearLayout
+        android:layout_below="@+id/header"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="150dp"
+        android:layout_marginRight="150dp"
+        android:id="@+id/linearLayout2">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tagnumber"
+        android:background="@drawable/textfieldimage"
+        android:layout_marginTop="25dp"
+        android:padding="20dp"
+        android:textColor="#e2e3df"
+        android:singleLine="true"
+        android:hint="TAG NUMBER"
+        android:textColorHint="#445523"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:id="@+id/btnSearch"
+            android:layout_marginTop="2dp"
+            android:onClick="searchDB"
+            android:background="@drawable/search"
+
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#d34e59"
+            android:textSize="17sp"
+            android:id="@+id/errorlabel"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:id="@+id/barcodepreview"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/linearLayout2"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm Barcode Scan"
+            android:id="@+id/confirmScan"
+            android:layout_marginTop="20dp"
+            android:onClick="confirmBarcodeScan"
+            android:layout_gravity="center_horizontal" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:id="@+id/backbutton"
+        android:onClick="backButton"
+        android:background="@drawable/backarrow"
+        android:padding="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+       />
+
+
+</RelativeLayout>
