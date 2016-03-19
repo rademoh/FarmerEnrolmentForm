@@ -32,7 +32,7 @@ public class DBFarmers extends SQLiteOpenHelper {
 
     public static final class DBFarmersContract {
         public static final String DB_NAME = "farmersrecordDB.db";
-        public static final int VERSION = 14;
+        public static final int VERSION = 15;
         private byte[] img=null;
 
         ///table for users
@@ -495,6 +495,8 @@ public String getUser(String userName){
     public ArrayList<HashMap<String, String>> getAllUsers() {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
+
+       // ArrayList<HashMap><String, String>
         String selectQuery = "SELECT  * FROM "+ DBFarmersContract.TABLE_NAME_FARMERS;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
@@ -508,7 +510,7 @@ public String getUser(String userName){
                 map.put("farmerID", cursor.getString(2));
                 map.put("surname", cursor.getString(3));
                 map.put("firstname", cursor.getString(4));
-                map.put("updateStatus", cursor.getString(34));
+                map.put("updateStatus", cursor.getString(35));
                /* map.put("middlename", cursor.getString(5));
                 map.put("gender", cursor.getString(6));
                 map.put("dob", cursor.getString(7));

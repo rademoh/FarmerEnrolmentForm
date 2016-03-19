@@ -18,7 +18,7 @@ public class SplashScreen extends Activity {
             public void run() {
                 try {
                     sleep(2000);
-                    Intent I = new Intent(SplashScreen.this, Third.class);
+                    Intent I = new Intent(SplashScreen.this, Login.class);
                     startActivity(I);
                     finish();
                 } catch (InterruptedException e) {
@@ -28,6 +28,10 @@ public class SplashScreen extends Activity {
             }
         };
         startTimer.start();
+
+
+
+
 
   }
 }

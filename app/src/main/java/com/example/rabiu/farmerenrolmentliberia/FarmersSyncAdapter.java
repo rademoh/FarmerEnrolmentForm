@@ -95,7 +95,7 @@ public class FarmersSyncAdapter extends AbstractThreadedSyncAdapter {
             if (controller.dbSyncCount() != 0) {
                 HttpClient client=new DefaultHttpClient();
               //  HttpPost httpPost=new HttpPost("http://nonitravels.comli.com/farmersenrol/insertuser.php");
-                HttpPost httpPost=new HttpPost("http://ges.cellulant.com.ng/NAPI/Insert/insertuser.php");
+                HttpPost httpPost=new HttpPost("http://41.206.23.39/LATA/Insert/insertuser.php");
 
                 L.m("onPerformSync Initiated...");
                 try {

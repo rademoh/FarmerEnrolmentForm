@@ -107,6 +107,16 @@
                 android:textColor="#e2e3df"
                 android:background="@drawable/dropdown"/>
 
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/evcr"
+                android:layout_marginTop="7dp"
+                android:padding="10dp"
+                android:textColor="#e2e3df"
+                android:background="@drawable/dropdown"/>
+
+
 
             <EditText
                 android:layout_width="match_parent"

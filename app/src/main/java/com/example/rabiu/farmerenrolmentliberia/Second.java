@@ -23,7 +23,7 @@ import java.util.List;
 public class Second extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
 
     EditText village, address;
-    Spinner maritalstatus,preferredlanguage, county,district,area;
+    Spinner maritalstatus,preferredlanguage, county,district,area,vcr;
     ImageButton back, next;
 
     @Override
@@ -44,6 +44,8 @@ public class Second extends ActionBarActivity implements AdapterView.OnItemSelec
         district = (Spinner) findViewById(R.id.edistrict);
         district.setOnItemSelectedListener(this);
         area = (Spinner) findViewById(R.id.earea);
+        area.setOnItemSelectedListener(this);
+        vcr = (Spinner) findViewById(R.id.evcr);
 
         maritalstatus = (Spinner) findViewById(R.id.maritalstatus);
 
