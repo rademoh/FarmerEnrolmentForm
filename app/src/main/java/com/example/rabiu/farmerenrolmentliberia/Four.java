@@ -130,6 +130,10 @@ public class Four extends ActionBarActivity implements AdapterView.OnItemSelecte
                 Intent s = new Intent(this, ManualSync.class);
                 startActivity(s);
                 return true;
+            case R.id.action_exportdb:
+                Intent ex = new Intent(this, ExportDB.class);
+                startActivity(ex);
+                return true;
             case R.id.action_exit:
                 Intent e = new Intent(this, Login.class);
                 startActivity(e);

@@ -89,15 +89,154 @@
                 android:textColor="#e2e3df"
                 android:background="@drawable/dropdown"/>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Cereal ::"
+                    android:textColor="#e2e3df"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_marginTop="7dp"
+                    />
+
             <com.example.rabiu.farmerenrolmentliberia.MultiSelectionSpinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/efarmercrop"
                 android:padding="10dp"
                 android:background="@drawable/textfieldimage"
-
-
                 />
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Tree Crops ::"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_marginTop="7dp"
+                />
+
+            <com.example.rabiu.farmerenrolmentliberia.MultiSelectionSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etreecrops"
+                android:padding="10dp"
+                android:background="@drawable/textfieldimage"
+                />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Root Crops ::"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_marginTop="7dp"
+                />
+            <com.example.rabiu.farmerenrolmentliberia.MultiSelectionSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/eroots"
+                android:padding="10dp"
+                android:background="@drawable/textfieldimage"
+                />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Fruits ::"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_marginTop="7dp"
+                />
+            <com.example.rabiu.farmerenrolmentliberia.MultiSelectionSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/efruits"
+                android:padding="10dp"
+                android:background="@drawable/textfieldimage"
+                />
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Legumes ::"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_marginTop="7dp"
+                />
+            <com.example.rabiu.farmerenrolmentliberia.MultiSelectionSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/elegumes"
+                android:padding="10dp"
+                android:background="@drawable/textfieldimage"
+                />
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Vegetables ::"
+                android:textColor="#e2e3df"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_marginTop="7dp"
+                />
+            <com.example.rabiu.farmerenrolmentliberia.MultiSelectionSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/evegetables"
+                android:padding="10dp"
+                android:background="@drawable/textfieldimage"
+                />
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,6 +257,10 @@
                 android:padding="10dp"
                 android:background="@drawable/textfieldimage"
                 />
+
+
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

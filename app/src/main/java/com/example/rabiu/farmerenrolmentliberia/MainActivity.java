@@ -1,6 +1,6 @@
 package com.example.rabiu.farmerenrolmentliberia;
 
-//Arthur Rabiu Ademoh
+//
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -21,7 +21,9 @@ import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.text.ParseException;
 
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,13 +34,13 @@ import com.google.android.gms.analytics.Tracker;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
 
-  EditText surname,firstname ,middlename,telephone,telephone2 ;
-  Spinner education, title;
-    ImageButton button ;
+    EditText surname, firstname, middlename, telephone, telephone2;
+    Spinner education, title;
+    ImageButton button;
     RadioGroup gender;
 
 
-    public static  final String DEFAULT = "";
+    public static final String DEFAULT = "";
 
     DBFarmers controller = new DBFarmers(this);
     //UI References
@@ -49,125 +51,115 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static GoogleAnalytics analytics;
     public static Tracker tracker;
 
-  @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newone);
-      //        action bar toolbar
-     Toolbar actionBarToolBar = (Toolbar) findViewById(R.id.my_action_bar_toolbar);
-      //        important that this is set first
-       setSupportActionBar(actionBarToolBar);
+        //        action bar toolbar
+        Toolbar actionBarToolBar = (Toolbar) findViewById(R.id.my_action_bar_toolbar);
+        //        important that this is set first
+        setSupportActionBar(actionBarToolBar);
 
-      analytics = GoogleAnalytics.getInstance(this);
-      analytics.setLocalDispatchPeriod(1800);
+        analytics = GoogleAnalytics.getInstance(this);
+        analytics.setLocalDispatchPeriod(1800);
 
-      tracker = analytics.newTracker("UA-61976873-2"); // Replace with actual tracker/property Id
-      tracker.enableExceptionReporting(true);
-      tracker.enableAdvertisingIdCollection(true);
-      tracker.enableAutoActivityTracking(true);
+        tracker = analytics.newTracker("UA-61976873-2"); // Replace with actual tracker/property Id
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
 
-         title = (Spinner)findViewById(R.id.etitle);
-            surname  = (EditText)findViewById(R.id.esurname);
-            firstname = (EditText)findViewById(R.id.efirstname);
-            middlename = (EditText) findViewById(R.id.emiddlename);
-            telephone = (EditText)findViewById(R.id.etelephone);
-            telephone2 = (EditText)findViewById(R.id.etelephone2);
-            education = (Spinner)findViewById(R.id.eeducation);
-            gender = (RadioGroup) findViewById(R.id.egender);
-            button = (ImageButton) findViewById(R.id.next);
+        title = (Spinner) findViewById(R.id.etitle);
+        surname = (EditText) findViewById(R.id.esurname);
+        firstname = (EditText) findViewById(R.id.efirstname);
+        middlename = (EditText) findViewById(R.id.emiddlename);
+        telephone = (EditText) findViewById(R.id.etelephone);
+        telephone2 = (EditText) findViewById(R.id.etelephone2);
+        education = (Spinner) findViewById(R.id.eeducation);
+        gender = (RadioGroup) findViewById(R.id.egender);
+        button = (ImageButton) findViewById(R.id.next);
 
-      dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
-      findViewsById();
-      setDateTimeField();
+        findViewsById();
+        setDateTimeField();
 
-      SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-      SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
-     surname.setText(sharedPreferences.getString("surname",""));
-      firstname.setText(sharedPreferences.getString("firstname",""));
-      middlename.setText(sharedPreferences.getString("middlename",""));
-      telephone.setText(sharedPreferences.getString("telephone",""));
-      telephone2.setText(sharedPreferences.getString("telephone2",""));
+        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
-      button.setOnClickListener(new Button.OnClickListener(){
-         @Override
-
-          public void onClick(final View v)
-
-          {
-          //Start another activity by passing an explicit intent
-
-              int radioId =   gender.getCheckedRadioButtonId();
-              final RadioButton radioGender = (RadioButton) findViewById(radioId);
-
-              final String title_str = title.getSelectedItem().toString();
-              if (!isValidTitle(title_str)) {
-                  TextView errorText = (TextView)title.getSelectedView();
-                  errorText.setError("");
-                  //errorText.setTextColor(Color.RED);//just to highlight that this is an error
-                 // errorText.setText("my actual error text");//changes the selected item text to this
-              }
-
-              final String surname_str = surname.getText().toString();
-              if (!isValidField(surname_str)) {
-                  surname.setError("");
-              }
-
-              final String firstname_str = firstname.getText().toString();
-              if (!isValidField(firstname_str)) {
-                  firstname.setError("");
-              }
-
-              final String middlename_str = middlename.getText().toString();
-              if (!isValidField(middlename_str)) {
-                  middlename.setError("");
-              }
-
-              final String telephone_str = telephone.getText().toString();
-              if (!isValidMobile(telephone_str)) {
-                  telephone.setError("");
-              }
-
-              final String education_str = education.getSelectedItem().toString();
-              if (!isValidEdu(education_str)) {
-                  TextView errorText = (TextView)education.getSelectedView();
-                  errorText.setError("");
-              }
-
-              else {
-
-                  SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-                  SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                  editor.putString("title", title.getSelectedItem().toString());
-                  editor.putString("surname", surname.getText().toString());
-                  editor.putString("firstname", firstname.getText().toString());
-                  editor.putString("middlename", middlename.getText().toString());
-                  editor.putString("telephone", telephone.getText().toString());
-                  editor.putString("telephone2", telephone2.getText().toString());
-                  editor.putString("dob", doBirth.getText().toString());
-                  editor.putString("education", education.getSelectedItem().toString());
-                  editor.putString("gender", radioGender.getText().toString());
-                  editor.commit();
+        surname.setText(sharedPreferences.getString("surname", ""));
+        firstname.setText(sharedPreferences.getString("firstname", ""));
+        middlename.setText(sharedPreferences.getString("middlename", ""));
+        telephone.setText(sharedPreferences.getString("telephone", ""));
+        telephone2.setText(sharedPreferences.getString("telephone2", ""));
 
 
-                  Intent intent = new Intent(MainActivity.this, Second.class);
-                  startActivity(intent);
-                  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        button.setOnClickListener(new Button.OnClickListener() {
+            @Override
 
-              }
+            public void onClick(final View v)
 
-              }
+            {
+                //Start another activity by passing an explicit intent
+
+                int radioId = gender.getCheckedRadioButtonId();
+                final RadioButton radioGender = (RadioButton) findViewById(radioId);
+
+                final String title_str = title.getSelectedItem().toString();
+                final String surname_str = surname.getText().toString();
+                final String firstname_str = firstname.getText().toString();
+                final String telephone_str = telephone.getText().toString();
+                final String education_str = education.getSelectedItem().toString();
+                final String dob_str = doBirth.getText().toString();
+
+                if (!isValidTitle(title_str)) {
+                    TextView errorText = (TextView) title.getSelectedView();
+                    errorText.setError("");
+                    //errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    // errorText.setText("my actual error text");//changes the selected item text to this
+                } else if (!isValidField(surname_str)) {
+                    surname.setError("");
+                } else if (!isValidField(firstname_str)) {
+                    firstname.setError("");
+                } else if (!checkDob(dob_str)) {
+                    doBirth.setError("Farmer must be above 16 years");
+                } else if (!isValidMobile(telephone_str)) {
+                    telephone.setError("");
+                } else if (!isValidEdu(education_str)) {
+                    TextView errorText = (TextView) education.getSelectedView();
+                    errorText.setError("");
+                } else {
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    editor.putString("title", title.getSelectedItem().toString());
+                    editor.putString("surname", surname.getText().toString());
+                    editor.putString("firstname", firstname.getText().toString());
+                    editor.putString("middlename", middlename.getText().toString());
+                    editor.putString("telephone", telephone.getText().toString());
+                    editor.putString("telephone2", telephone2.getText().toString());
+                    editor.putString("dob", doBirth.getText().toString());
+                    editor.putString("education", education.getSelectedItem().toString());
+                    editor.putString("gender", radioGender.getText().toString());
+                    editor.commit();
 
 
-          //}
- });
+                    Intent intent = new Intent(MainActivity.this, Second.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                }
+
+            }
 
 
-  }
+            //}
+        });
+
+
+    }
+
     // validating field
     private boolean isValidField(String pass) {
         if (pass != null && pass.length() > 3) {
@@ -175,6 +167,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
         return false;
     }
+
     // validating title
     private boolean isValidTitle(String pass) {
         if (!pass.equals("[Select Title]")) {
@@ -182,13 +175,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
         return false;
     }
+
     // validating telephone number
     private boolean isValidMobile(String pass) {
-        if (pass != null && pass.length() > 9) {
+        if (pass != null && pass.length() >= 10) {
             return true;
         }
         return false;
     }
+
     // validating education
     private boolean isValidEdu(String pass) {
         if (!pass.equals("[Select Education]")) {
@@ -196,6 +191,25 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
         return false;
     }
+
+    private boolean checkDob(String dob_str) {
+
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            Date validDate = df.parse("01-01-2001");
+            Date inputDate = df.parse(dob_str);
+
+            if (inputDate.before(validDate)) {
+                return true;
+            }
+
+
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+            return  false;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
@@ -219,6 +233,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.action_sync:
                 Intent s = new Intent(this, ManualSync.class);
                 startActivity(s);
+                return true;
+            case R.id.action_exportdb:
+                Intent ex = new Intent(this, ExportDB.class);
+                startActivity(ex);
                 return true;
             case R.id.action_exit:
                 Intent e = new Intent(this, Login.class);

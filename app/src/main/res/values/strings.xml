@@ -38,6 +38,7 @@
     <string name="member_question">Are you a member of ::</string>
     <string name="action_sync">Sync</string>
     <string name="action_exit">Exit</string>
+    <string name="action_exportDB">Export DB</string>
 
     <string-array name="title">
         <item>[Select Title]</item>
@@ -138,7 +139,7 @@
 
     <string-array name="member_group">
         <item>Cooperative</item>
-        <item>Field based organization FBO</item>
+        <item>Farmer based organization FBO</item>
         <item>Community based organisation CBO</item>
         <item>Others</item>
         <item>None</item>

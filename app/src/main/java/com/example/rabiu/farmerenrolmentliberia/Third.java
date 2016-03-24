@@ -23,7 +23,7 @@ public class Third extends ActionBarActivity {
 
 
     EditText farmsize,farmlocation;
-    MultiSelectionSpinner farmerscrop, farmerslivestock,faremersfisheries;
+    MultiSelectionSpinner farmerscrop, farmerslivestock,faremersfisheries,cereals,tree_crops,roots,fruits,legumes,vegetables;
     Spinner primary_crop;
     ImageButton next2, back2;
 
@@ -43,13 +43,25 @@ public class Third extends ActionBarActivity {
         farmlocation = (EditText)findViewById(R.id.efarmlocation);
         primary_crop = (Spinner)findViewById(R.id.primary_crop);
 
-        String[] arrays = {"None","Corn","Rice","Cocoayam","Vegetables", "Millet", "Yams", "Cassava", "Soybeans", "Cocoa","Sorghum", "Cotton", "Oilpalm",
-                "Tomatoes","Ginger","Sweet Potato","Sesame","Wheat","Groundnut", "Cashew","Sugar-Cane"
-                            };
+        String[] arrays = {"None","Corn","Rice","Millet","Cassava", "Soybeans","Sorghum",
+                "Sesame","Wheat","Groundnut", "Cashew"};
 
         String[] livestockarray = {"None","Piggery","Poultry", "Sheep and Goat","Dairy","Beef","Leather"};
         String[] fisharray = {"None","Aquaculture","Artisanal"};
 
+        String[] tree_cropsarray ={"None","Cocoa","Oil Palm","Coconut","Coffee"};
+        String[] rootsarray ={"None","Cassava","Sweet Potato","Stems","Eddoe"};
+        String[] fruitsarray ={"None","Citrus","Banana","Plantain","Pineapple","Watermelon"};
+        String[] legumesarray ={"None","Cowpea","Groundnut","Broad Beans"};
+        String[]  vegetablearray = {"None","Hot Pepper","Bitter Ball","Eggplat","Okra","Cabbage","Collard","Wheat","Tomato","Cotton","Pumpkin","Lettuce","Squash"};
+
+        //cereals,tree_crops,roots,fruits,legumes,vegetables
+
+        tree_crops = (MultiSelectionSpinner) findViewById(R.id.etreecrops);
+        roots      = (MultiSelectionSpinner) findViewById(R.id.eroots);
+        fruits     = (MultiSelectionSpinner) findViewById(R.id.efruits);
+        legumes    = (MultiSelectionSpinner) findViewById(R.id.elegumes);
+        vegetables  = (MultiSelectionSpinner) findViewById(R.id.evegetables);
 
 
         farmerscrop = (MultiSelectionSpinner) findViewById(R.id.efarmercrop);
@@ -62,6 +74,11 @@ public class Third extends ActionBarActivity {
         farmerscrop.setItems(arrays);
         farmerslivestock.setItems(livestockarray);
         faremersfisheries.setItems(fisharray);
+        tree_crops.setItems(tree_cropsarray);
+        roots.setItems(rootsarray);
+        fruits.setItems(fruitsarray);
+        legumes.setItems(legumesarray);
+        vegetables.setItems(vegetablearray);
 
         next2 = (ImageButton) findViewById(R.id.next2);
         back2 = (ImageButton) findViewById(R.id.back2);
@@ -70,7 +87,7 @@ public class Third extends ActionBarActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         farmsize.setText(sharedPreferences.getString("farmsize",""));
-        farmlocation.setText(sharedPreferences.getString("farmlocation",""));
+        farmlocation.setText(sharedPreferences.getString("farmlocation", ""));
 
         //Listener added to the submit button
         next2.setOnClickListener(new Button.OnClickListener(){
@@ -81,27 +98,34 @@ public class Third extends ActionBarActivity {
             {
 
                 final String farmsize_str = farmsize.getText().toString();
-                if (!isValidField1(farmsize_str)) {
-                    farmsize.setError("");
-                }
-
                 final String farmlocation_str = farmlocation.getText().toString();
-                if (!isValidField(farmlocation_str)) {
-                    farmlocation.setError("");
-                }
                 final String crop_str = primary_crop.getSelectedItem().toString();
-                if (!isValidCrop(crop_str)) {
+
+                    if (!isValidCrop(crop_str)) {
                     TextView errorText = (TextView)primary_crop.getSelectedView();
                     errorText.setError("");
-                }
+                    } else if (!isValidField1(farmsize_str)) {
+                        farmsize.setError("");
+                        farmsize.requestFocus();
+                    } else if (!isValidField(farmlocation_str)) {
+                        farmlocation.setError("");
+                        farmlocation.requestFocus();
+                    }
 
-                else {
+                    else {
                     //Start another activity by passing an explicit intent
                     SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
                     editor.putString("primary_crop",primary_crop.getSelectedItem().toString());
+
+                    editor.putString("tree_crops", tree_crops.getSelectedItem().toString());
+                    editor.putString("roots", roots.getSelectedItem().toString());
+                    editor.putString("fruits", fruits.getSelectedItem().toString());
+                    editor.putString("legumes", legumes.getSelectedItem().toString());
+                    editor.putString("vegetables",  vegetables.getSelectedItem().toString());
+
                     editor.putString("farmerscrop", farmerscrop.getSelectedItem().toString());
                     editor.putString("farmsize", farmsize.getText().toString());
                     editor.putString("farmlocation", farmlocation.getText().toString());
@@ -174,6 +198,10 @@ public class Third extends ActionBarActivity {
             case R.id.action_sync:
                 Intent s = new Intent(this, ManualSync.class);
                 startActivity(s);
+                return true;
+            case R.id.action_exportdb:
+                Intent ex = new Intent(this, ExportDB.class);
+                startActivity(ex);
                 return true;
             case R.id.action_exit:
                 Intent e = new Intent(this, Login.class);

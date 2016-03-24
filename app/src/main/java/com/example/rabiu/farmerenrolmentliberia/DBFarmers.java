@@ -32,7 +32,8 @@ public class DBFarmers extends SQLiteOpenHelper {
 
     public static final class DBFarmersContract {
         public static final String DB_NAME = "farmersrecordDB.db";
-        public static final int VERSION = 15;
+       // public static final int VERSION = 18;
+       public static final int VERSION = 19;
         private byte[] img=null;
 
         ///table for users
@@ -58,9 +59,16 @@ public class DBFarmers extends SQLiteOpenHelper {
         public static final String COLUMN_COUNTY = "county";
         public static final String COLUMN_DISTRICT = "district";
         public static final String COLUMN_AREA = "area";
+        public static final String COLUMN_VCR = "vcr";
 
         public static final String COLUMN_PRIMARY_CROP = "primary_crop";
         public static final String COLUMN_FARMERSCROP = "farmerscrop";
+        public static final String COLUMN_TREE_CROPS = "tree_crops";
+        public static final String COLUMN_ROOTS = "roots";
+        public static final String COLUMN_FRUITS = "fruits";
+        public static final String COLUMN_LEGUMES = "legumes";
+        public static final String COLUMN_VEGETABLES = "vegetables";
+
         public static final String COLUMN_FARMSIZE = "farmsize";
         public static final String COLUMN_FARMLOCATION = "farmlocation";
         public static final String COLUMN_FARMERSLIVESTOCK = "farmerslivestock";
@@ -111,6 +119,13 @@ public class DBFarmers extends SQLiteOpenHelper {
         public static final String TABLE_NAME_DISTRICT = "district";
         public static final String COLUMN_DISTRICTID = "district_id";
         public static final String COLUMN_DISTRICTNAME = "district_name";
+
+        //// table for vcr
+        public static final String TABLE_NAME_VCR = "vcr";
+        public static final String COLUMN_VCR_CODE = "vcr_code";
+        public static final String COLUMN_VCR_NAME = "vcr_name";
+
+
 
 
         //// table for state
@@ -165,9 +180,16 @@ public class DBFarmers extends SQLiteOpenHelper {
                 + COLUMN_COUNTY + " TEXT, "
                 + COLUMN_DISTRICT + " TEXT, "
                 + COLUMN_AREA + " TEXT, "
+                + COLUMN_VCR + " TEXT, "
 
                 + COLUMN_PRIMARY_CROP + " TEXT, "
                 + COLUMN_FARMERSCROP + " TEXT, "
+                + COLUMN_TREE_CROPS + " TEXT, "
+                + COLUMN_ROOTS + " TEXT, "
+                + COLUMN_FRUITS + " TEXT, "
+                + COLUMN_LEGUMES + " TEXT, "
+                + COLUMN_VEGETABLES + " TEXT, "
+
                 + COLUMN_FARMSIZE + " TEXT, "
                 + COLUMN_FARMLOCATION + " TEXT, "
                 + COLUMN_FARMERSLIVESTOCK + " TEXT, "
@@ -207,6 +229,15 @@ public class DBFarmers extends SQLiteOpenHelper {
                 + COLUMN_ELECTORALDISTRICT + " VARCHAR(19), "
                 + COLUMN_COUNTYID + " VARCHAR(9)) ";
 
+        //// create state VCR
+        public static final String CREATE_TABLE_VCR = "CREATE TABLE " + TABLE_NAME_VCR + " ("
+                + COLUMN_VCR_CODE + " INTEGER(5) , "
+                + COLUMN_VCR_NAME + " VARCHAR(56), "
+                + COLUMN_TOWNID + " INTEGER(3), "
+                + COLUMN_DISTRICTID + " INTEGER(3), "
+                + COLUMN_ELECTORALDISTRICT + " VARCHAR(4), "
+                + COLUMN_COUNTYID + " INTEGER(2)) ";
+
         //// create state table
        public static final String CREATE_TABLE_STATE = "CREATE TABLE " + TABLE_NAME_STATE + " ("
                 + COLUMN_STATEID + " VARCHAR(7) NOT NULL PRIMARY KEY , "
@@ -237,32 +268,27 @@ public class DBFarmers extends SQLiteOpenHelper {
     //Creates Table
     @Override
     public void onCreate(SQLiteDatabase database) {
-        String queryUser, queryState,queryCounty,queryTown,queryDistrict, queryLga, queryWard, queryAdmin;
+        String queryUser, queryState,queryCounty,queryTown,queryDistrict,queryVcr, queryLga, queryWard, queryAdmin;
+
 
         queryUser = DBFarmersContract.CREATE_TABLE;
         queryCounty = DBFarmersContract.CREATE_TABLE_COUNTY;
         queryTown = DBFarmersContract.CREATE_TABLE_TOWN;
         queryDistrict = DBFarmersContract.CREATE_TABLE_DISTRICT;
-        queryState = DBFarmersContract.CREATE_TABLE_STATE;
-        queryLga = DBFarmersContract.CREATE_TABLE_LGA;
-        queryWard = DBFarmersContract.CREATE_TABLE_WARD;
+        queryVcr = DBFarmersContract.CREATE_TABLE_VCR;
         queryAdmin = DBFarmersContract.CREATE_TABLE_ADMIN;
 
         database.execSQL(queryUser);
-        database.execSQL(queryState);
         database.execSQL(queryCounty);
         database.execSQL(queryDistrict);
         database.execSQL(queryTown);
-        database.execSQL(queryLga);
-        database.execSQL(queryWard);
+        database.execSQL(queryVcr);
         database.execSQL(queryAdmin);
 
-        executeSQLScript(database, "county.sql");
-        executeSQLScript(database, "district.sql");
-        executeSQLScript(database, "town.sql");
-        executeSQLScript(database, "states.sql");
-        executeSQLScript(database, "lga.sql");
-        executeSQLScript(database, "wards.sql");
+           executeSQLScript(database, "county.sql");
+           executeSQLScript(database, "district.sql");
+           executeSQLScript(database, "town.sql");
+           executeSQLScript(database, "vcr.sql");
 
     }
 
@@ -276,7 +302,7 @@ public class DBFarmers extends SQLiteOpenHelper {
         try{
             inputStream = assetManager.open(dbname);
             while ((len = inputStream.read(buf)) != -1) {
-              //  System.out.println("No of lines read " +len);
+                System.out.println("No of lines read " +len);
                 outputStream.write(buf, 0, len);
             }
             outputStream.close();
@@ -289,7 +315,8 @@ public class DBFarmers extends SQLiteOpenHelper {
                 String sqlStatement = createScript[i].trim();
                 // TODO You may want to parse out comments here
                 if (sqlStatement.length() > 0) {
-                  //  System.out.println("No of Script read " + sqlStatement );
+
+                    System.out.println("No of Script read " + sqlStatement );
                     database.execSQL(sqlStatement + ";");
                 }
             }
@@ -301,28 +328,41 @@ public class DBFarmers extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase database, int version_old, int current_version) {
-        String query, queryS, queryL, queryW ,queryC, queryA, queryD, queryT;
+        String query, queryS, queryL, queryW ,queryC, queryA, queryD, queryT,queryV;
+
 
         query = "DROP TABLE IF EXISTS farmers";
         queryC = "DROP TABLE IF EXISTS county";
         queryD = "DROP TABLE IF EXISTS district";
         queryT = "DROP TABLE IF EXISTS town";
-       queryS = "DROP TABLE IF EXISTS states";
-       queryL = "DROP TABLE IF EXISTS lga";
+        queryV = "DROP TABLE IF EXISTS vcr";
+        queryS = "DROP TABLE IF EXISTS states";
+        queryL = "DROP TABLE IF EXISTS lga";
        queryW = "DROP TABLE IF EXISTS wards";
         queryA = "DROP TABLE IF EXISTS admin";
 
-       database.execSQL(query);
+       /* if (version_old < 24) {
+          //  ExportDB edb = new ExportDB();
+           // edb.exportDB();
+            database.execSQL(queryV);
+            database.execSQL(queryVcr);
+            executeSQLScript(database, "vcr.sql");
+        }*/
+        database.execSQL(query);
        database.execSQL(queryS);
-        database.execSQL(queryC);
-        database.execSQL(queryD);
-        database.execSQL(queryT);
-       database.execSQL(queryL);
+       database.execSQL(queryC);
+       database.execSQL(queryD);
+       database.execSQL(queryT);
+       database.execSQL(queryV);
+        database.execSQL(queryL);
        database.execSQL(queryW);
-        database.execSQL(queryA);
+       database.execSQL(queryA);
 
-        onCreate(database);
+       onCreate(database);
     }
+
+
+
     /**
      * Inserts User into SQLite DB
      * @param queryValues
@@ -362,9 +402,17 @@ public class DBFarmers extends SQLiteOpenHelper {
         values.put("county", queryValues.get("county"));
         values.put("district", queryValues.get("district"));
         values.put("area", queryValues.get("area"));
+        values.put("vcr", queryValues.get("vcr"));
 
         values.put("primary_crop", queryValues.get("primary_crop"));
         values.put("farmerscrop", queryValues.get("farmerscrop"));
+
+        values.put("tree_crops", queryValues.get("tree_crops"));
+        values.put("roots", queryValues.get("roots"));
+        values.put("fruits", queryValues.get("fruits"));
+        values.put("legumes", queryValues.get("legumes"));
+        values.put("vegetables", queryValues.get("vegetables"));
+
         values.put("farmsize", queryValues.get("farmsize"));
         values.put("farmlocation", queryValues.get("farmlocation"));
         values.put("farmerslivestock", queryValues.get("farmerslivestock"));
@@ -510,42 +558,7 @@ public String getUser(String userName){
                 map.put("farmerID", cursor.getString(2));
                 map.put("surname", cursor.getString(3));
                 map.put("firstname", cursor.getString(4));
-                map.put("updateStatus", cursor.getString(35));
-               /* map.put("middlename", cursor.getString(5));
-                map.put("gender", cursor.getString(6));
-                map.put("dob", cursor.getString(7));
-                map.put("educationlevel", cursor.getString(8));
-                map.put("phoneNumber", cursor.getString(9));
-                map.put("phoneNumber2", cursor.getString(10));
-
-                map.put("village", cursor.getString(11));
-                map.put("farmersaddress", cursor.getString(12));
-                map.put("maritalstatus", cursor.getString(13));
-                map.put("preferredlanguage", cursor.getString(14));
-                map.put("county", cursor.getString(15));
-                map.put("district", cursor.getString(16));
-                map.put("area", cursor.getString(17));
-
-                map.put("farmerscrop", cursor.getString(18));
-                map.put("farmsize", cursor.getString(19));
-                map.put("farmlocation", cursor.getString(20));
-                map.put("farmerslivestock", cursor.getString(21));
-                map.put("farmersfisheries", cursor.getString(22));
-
-                map.put("member_question", cursor.getString(23));
-                map.put("groupname", cursor.getString(24));
-                map.put("groupleadername", cursor.getString(25));
-                map.put("groupleaderphone", cursor.getString(26));
-                map.put("picture", cursor.getString(27));
-                map.put("adminfullName", cursor.getString(28));
-                map.put("adminphoneNumber", cursor.getString(29));
-                map.put("admincounty", cursor.getString(30));
-                map.put("admindistrict", cursor.getString(31));
-                map.put("imei", cursor.getString(32));
-
-                map.put("dateCreated", cursor.getString(33));
-                map.put("updateStatus", cursor.getString(34));*/
-
+                map.put("updateStatus", cursor.getString(41));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
@@ -557,10 +570,10 @@ public String getUser(String userName){
      * Compose JSON out of SQLite records
      * @return
      */
-    public String composeJSONfromSQLite(){
+    public synchronized String composeJSONfromSQLite(){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM farmers where updateStatus = '"+"no"+"'";
+        String selectQuery = "SELECT  * FROM farmers where updateStatus = '"+"no"+"' LIMIT 10";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -585,27 +598,33 @@ public String getUser(String userName){
                 map.put("county", cursor.getString(15));
                 map.put("district", cursor.getString(16));
                 map.put("area", cursor.getString(17));
+                map.put("vcr", cursor.getString(18));
 
-                map.put("primary_crop", cursor.getString(18));
-                map.put("farmerscrop", cursor.getString(19));
-                map.put("farmsize", cursor.getString(20));
-                map.put("farmlocation", cursor.getString(21));
-                map.put("farmerslivestock", cursor.getString(22));
-                map.put("farmersfisheries", cursor.getString(23));
+                map.put("primary_crop", cursor.getString(19));
+                map.put("farmerscrop", cursor.getString(20));
+                map.put("tree_crops", cursor.getString(21));
+                map.put("roots", cursor.getString(22));
+                map.put("fruits", cursor.getString(23));
+                map.put("legumes", cursor.getString(24));
+                map.put("vegetables", cursor.getString(25));
 
-                map.put("member_question", cursor.getString(24));
-                map.put("groupname", cursor.getString(25));
-                map.put("groupleadername", cursor.getString(26));
-                map.put("groupleaderphone", cursor.getString(27));
-                map.put("picture", cursor.getString(28));
-                map.put("adminfullName", cursor.getString(29));
-                map.put("adminphoneNumber", cursor.getString(30));
-                map.put("admincounty", cursor.getString(31));
-                map.put("admindistrict", cursor.getString(32));
-                map.put("imei", cursor.getString(33));
+                map.put("farmsize", cursor.getString(26));
+                map.put("farmlocation", cursor.getString(27));
+                map.put("farmerslivestock", cursor.getString(28));
+                map.put("farmersfisheries", cursor.getString(29));
 
-                map.put("dateCreated", cursor.getString(34));
-                map.put("updateStatus", cursor.getString(35));
+                map.put("member_question", cursor.getString(30));
+                map.put("groupname", cursor.getString(31));
+                map.put("groupleadername", cursor.getString(32));
+                map.put("groupleaderphone", cursor.getString(33));
+                map.put("picture", cursor.getString(34));
+                map.put("adminfullName", cursor.getString(35));
+                map.put("adminphoneNumber", cursor.getString(36));
+                map.put("admincounty", cursor.getString(37));
+                map.put("admindistrict", cursor.getString(38));
+                map.put("imei", cursor.getString(39));
+                map.put("dateCreated", cursor.getString(40));
+                map.put("updateStatus", cursor.getString(41));
 
                 wordList.add(map);
             } while (cursor.moveToNext());
@@ -791,6 +810,46 @@ public String getUser(String userName){
 
         // returning names
         return areaname;
+    }
+
+    public List<String> getVcr(String wardlabel){
+        List<String> vcrname = new ArrayList<String>();
+        // Select All Query
+        String[] columns = {"town_id"};
+        SQLiteDatabase db = this.getReadableDatabase();
+        /// Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.query("town", columns, "town_name" + " = '" + wardlabel + "'", null, null, null, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+
+                String townid = cursor.getString(0);
+               // System.out.println("TOWN ID: " + townid);
+
+                String[] columnward = {"vcr_name"};
+                Cursor cursors = db.query("vcr", columnward, "town_id" + " = '" + townid + "'", null, null, null, null);
+
+
+                if(cursors.moveToFirst()){
+                    do {
+
+                        vcrname.add(cursors.getString(0));
+                      //  String areanames = cursors.getString(0);
+                      //  System.out.println( "TOWN_NAME: " + areanames);
+                    }while (cursors.moveToNext());
+
+                }
+            }
+            while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning names
+        return vcrname;
     }
 
     public List<String> getWard(String wardlabel){

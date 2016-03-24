@@ -81,6 +81,7 @@ public class ManualSync  extends ActionBarActivity {
 
                         prgDialog.hide();
                         try {
+                            int successful_update = 0;
                             JSONArray arr = new JSONArray(response_str);
                             System.out.println(arr.length());
                             for(int i=0; i<arr.length();i++){
@@ -88,8 +89,13 @@ public class ManualSync  extends ActionBarActivity {
                                 System.out.println(obj.get("id"));
                                 System.out.println(obj.get("status"));
                                 controller.updateSyncStatus(obj.get("id").toString(),obj.get("status").toString());
+
+                                if(obj.get("status").equals("yes")){
+                                    successful_update++;
+                                }
                             }
-                            Toast.makeText(getApplicationContext(), "DB Sync completed!", Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(getApplicationContext(), successful_update + " Records Synced", Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             // TODO Auto-generated catch block
                             Toast.makeText(getApplicationContext(), "Server's JSON response might be invalid!", Toast.LENGTH_LONG).show();

@@ -26,6 +26,8 @@ public class Second extends ActionBarActivity implements AdapterView.OnItemSelec
     Spinner maritalstatus,preferredlanguage, county,district,area,vcr;
     ImageButton back, next;
 
+  //  DBFarmers db = new DBFarmers(getApplicationContext());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,41 +75,34 @@ public class Second extends ActionBarActivity implements AdapterView.OnItemSelec
             {
 
                 final String county_str = county.getSelectedItem().toString();
+                final String district_str = district.getSelectedItem().toString();
+                final String town_str = area.getSelectedItem().toString();
+                final String vcr_str = vcr.getSelectedItem().toString();
+                final String address_str = address.getText().toString();
+                final String marital_str = maritalstatus.getSelectedItem().toString();
+                final String preflang_str = preferredlanguage.getSelectedItem().toString();
+                final String village_str = village.getText().toString();
+
                 if (!isValidCounty(county_str)) {
                     TextView errorText = (TextView)county.getSelectedView();
                     errorText.setError("");
-                }
-
-                final String district_str = district.getSelectedItem().toString();
-                if (!isValidDistrict(district_str)) {
+                } else if (!isValidDistrict(district_str)) {
                     TextView errorText = (TextView)district.getSelectedView();
                     errorText.setError("");
-                }
-
-                final String town_str = area.getSelectedItem().toString();
-                if (!isValidTown(town_str)) {
+                } else if (!isValidTown(town_str)) {
                     TextView errorText = (TextView)area.getSelectedView();
                     errorText.setError("");
-                }
-
-               /* final String village_str = village.getText().toString();
-                if (!isValidField(village_str)) {
+                } else if (!isValidVcr(vcr_str)) {
+                    TextView errorText = (TextView)vcr.getSelectedView();
+                    errorText.setError("");
+                } else if (!isValidField(village_str)) {
                     village.setError("");
-                }*/
-
-                final String address_str = address.getText().toString();
-                if (!isValidField(address_str)) {
+                } else if (!isValidField(address_str)) {
                     address.setError("");
-                }
-
-                final String marital_str = maritalstatus.getSelectedItem().toString();
-                if (!isValidMarital(marital_str)) {
+                } else if (!isValidMarital(marital_str)) {
                     TextView errorText = (TextView)maritalstatus.getSelectedView();
                     errorText.setError("");
-                }
-
-                final String preflang_str = preferredlanguage.getSelectedItem().toString();
-                if (!isValidLan(preflang_str)) {
+                } else if (!isValidLan(preflang_str)) {
                     TextView errorText = (TextView)preferredlanguage.getSelectedView();
                     errorText.setError("");
                 }
@@ -124,6 +119,7 @@ public class Second extends ActionBarActivity implements AdapterView.OnItemSelec
                     editor.putString("county", county.getSelectedItem().toString());
                     editor.putString("district", district.getSelectedItem().toString());
                     editor.putString("area", area.getSelectedItem().toString());
+                    editor.putString("vcr", vcr.getSelectedItem().toString());
                     editor.commit();
 
                     Intent intent = new Intent(Second.this, Third.class);
@@ -171,6 +167,10 @@ public class Second extends ActionBarActivity implements AdapterView.OnItemSelec
             case R.id.action_sync:
                 Intent s = new Intent(this, ManualSync.class);
                 startActivity(s);
+                return true;
+            case R.id.action_exportdb:
+                Intent ex = new Intent(this, ExportDB.class);
+                startActivity(ex);
                 return true;
             case R.id.action_exit:
                 Intent e = new Intent(this, Login.class);
@@ -225,6 +225,14 @@ public class Second extends ActionBarActivity implements AdapterView.OnItemSelec
     // validating town
     private boolean isValidTown(String pass) {
         if (!pass.equals("[Select Town]")) {
+            return true;
+        }
+        return false;
+    }
+
+    // validating vcr
+    private boolean isValidVcr(String pass) {
+        if (!pass.equals("[Select VCR]")) {
             return true;
         }
         return false;
@@ -310,6 +318,30 @@ public class Second extends ActionBarActivity implements AdapterView.OnItemSelec
 
                 // attaching data adapter to spinner
                 area.setAdapter(wdataAdapter);
+
+                break;
+            case R.id.earea:
+
+                String town_str = parent.getItemAtPosition(position).toString();
+
+                DBFarmers db2 = new DBFarmers(getApplicationContext());
+                // Spinner Drop down elements
+                List<String> vcr_list = db2.getVcr(town_str);
+
+                // Creating adapter for spinner
+                ArrayAdapter<String> vcrAdapter = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_spinner_item, vcr_list);
+
+                // Drop down layout style - list view with radio button
+                vcrAdapter
+                        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+                String vcroption_str = "[Select VCR]";
+                vcrAdapter.insert(vcroption_str , 0);
+
+                // attaching data adapter to spinner
+                vcr.setAdapter(vcrAdapter);
 
                 break;
         }

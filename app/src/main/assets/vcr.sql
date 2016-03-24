@@ -1041,7 +1041,6 @@ INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33196,'ZAYGLAY PUBLICH SCHOOL',811,101,'ED7',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33202,'DOUWIN PALAVA HUT',812,101,'ED7',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33205,'ZONTUO S.D.A SCHOOL',813,101,'ED7',12);
-INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33004,'BANAKPALLAH PUBLICH SCHOOL',814,94,'ED8',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33005,'BANLAH PUBLIC SCHOOL',815,94,'ED8',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33014,'SEHWEE PALAVA HUT',816,93,'ED8',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33016,'ZAHNBOIE PUBLIC SCHOOL',817,94,'ED8',12);
@@ -1064,8 +1063,7 @@ INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33175,'BEIPA PALAVA HUT',832,94,'ED8',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33180,'GBAHN PUBLIC SCHOOL',833,93,'ED8',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33181,'KPOAHPA PUBLIC SCHOOL',833,93,'ED8',12);
-INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33004,'BANAKPALLAH PUBLICH SCHOOL',814,94,'ED8',12);
-INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33005,'BANLAH PUBLIC SCHOOL',815,94,'ED8',12);
+INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33004,'BANAKPALLAH PUBLIC SCHOOL ',814,94,'ED8',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33014,'SEHWEE PALAVA HUT',816,93,'ED8',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33016,'ZAHNBOIE PUBLIC SCHOOL',817,94,'ED8',12);
 INSERT INTO vcr(vcr_code,vcr_name,town_id,district_id,electroral_district,county_id) VALUES (33024,'BUNADIN PUBLIC SCHOOL',818,94,'ED8',12);

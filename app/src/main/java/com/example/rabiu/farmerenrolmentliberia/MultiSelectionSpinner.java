@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MultiSelectionSpinner extends Spinner implements
         OnMultiChoiceClickListener {
-    String[] _items = null;
+    String[] _items = null ;
     boolean[] mSelection = null;
 
     ArrayAdapter<String> simple_adapter;
@@ -52,8 +52,10 @@ public class MultiSelectionSpinner extends Spinner implements
     public boolean performClick() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMultiChoiceItems(_items, mSelection, this);
+       // builder.setTitle("");
         builder.show();
-        return true;
+
+        return  true;
     }
 
     @Override

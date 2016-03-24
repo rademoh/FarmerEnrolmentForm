@@ -225,7 +225,7 @@ public class Register extends Activity implements AdapterView.OnItemSelectedList
                 lga.setAdapter(dataAdapter);
 
                 break;
-            case R.id.lga:
+           /* case R.id.lga:
 
                 String wardlabel = parent.getItemAtPosition(position).toString();
 
@@ -234,9 +234,9 @@ public class Register extends Activity implements AdapterView.OnItemSelectedList
              //lgasid =  db1.getLGAId(wardlabel);
 
                 // Spinner Drop down elements
-                List<String> wlables = db1.getWard(wardlabel);
-
-                break;
+               // List<String> wlables = db1.getWard(wardlabel);
+*/
+               // break;
         }
     }
 

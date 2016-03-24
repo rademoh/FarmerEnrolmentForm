@@ -6,6 +6,7 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -54,11 +56,11 @@ public class Five extends ActionBarActivity {
     EditText tagnumber;
     ImageButton back4, btnTakePhoto, next4;
     public static final String DEFAULT = "NULL";
-    ImageView imgTakenPhoto, preview;
+    ImageView imgTakenPhoto;
     private static final int CAM_REQUEST = 1313;
     private byte[] img = null;
-    private byte[] barcodeimg = null;
-
+    final int CROP_PIC = 2;
+    private Uri picUri;
 
 
     final Context context = this;
@@ -72,6 +74,7 @@ public class Five extends ActionBarActivity {
     public static final String ACCOUNT = "farmersaccount";
     // Instance fields
     Account mAccount;
+
 
     DBFarmers controller = new DBFarmers(this);
 
@@ -88,13 +91,19 @@ public class Five extends ActionBarActivity {
                 String outcome = extras.getString(FarmersSyncAdapter.SYNC_OUTCOME);
 
                 try {
+                    int successful_update = 0;
+
                     JSONArray arr = new JSONArray(outcome);
                    // System.out.println(arr.length());
                     for (int i = 0; i < arr.length(); i++) {
                         JSONObject obj = (JSONObject) arr.get(i);
                         controller.updateSyncStatus(obj.get("id").toString(), obj.get("status").toString());
+
+                        if(obj.get("status").equals("yes")){
+                            successful_update++;
+                        }
                     }
-                    Toast.makeText(getApplicationContext(), "Data Sent to Server", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), successful_update + " Records Synced" , Toast.LENGTH_LONG).show();
 
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
@@ -210,9 +219,17 @@ public class Five extends ActionBarActivity {
                         queryValues.put("county", sharedPreferences.getString("county", DEFAULT));
                         queryValues.put("district", sharedPreferences.getString("district", DEFAULT));
                         queryValues.put("area", sharedPreferences.getString("area", DEFAULT));
+                        queryValues.put("vcr", sharedPreferences.getString("vcr", DEFAULT));
 
                         queryValues.put("primary_crop", sharedPreferences.getString("primary_crop", DEFAULT));
                         queryValues.put("farmerscrop", sharedPreferences.getString("farmerscrop", DEFAULT));
+
+                        queryValues.put("tree_crops", sharedPreferences.getString("tree_crops", DEFAULT));
+                        queryValues.put("roots", sharedPreferences.getString("roots", DEFAULT));
+                        queryValues.put("fruits", sharedPreferences.getString("fruits", DEFAULT));
+                        queryValues.put("legumes", sharedPreferences.getString("legumes", DEFAULT));
+                        queryValues.put("vegetables", sharedPreferences.getString("vegetables", DEFAULT));
+
                         queryValues.put("farmsize", sharedPreferences.getString("farmsize", DEFAULT));
                         queryValues.put("farmlocation", sharedPreferences.getString("farmlocation", DEFAULT));
                         queryValues.put("farmerslivestock", sharedPreferences.getString("farmerslivestock", DEFAULT));
@@ -232,14 +249,20 @@ public class Five extends ActionBarActivity {
                         queryValues.put("admindistrict", sp.getString("district", DEFAULT));
                         queryValues.put("imei", sp.getString("imei", DEFAULT));
 
-
-                       // Intent data = new Intent();
-
                         Bundle extras = new Bundle();
+                        //Turn on periodic syncing
+                        ContentResolver resolver = getContentResolver();
+                      //  resolver.setSyncAutomatically(createSyncAccount(getApplicationContext()), AUTHORITY, true);
+                       //// mAccount = createSyncAccount(getApplicationContext());
+                        resolver.addPeriodicSync(createSyncAccount(getApplicationContext()), AUTHORITY, new Bundle(), 720);
 
-                        ContentResolver.setSyncAutomatically(createSyncAccount(getApplicationContext()), AUTHORITY, true);
 
-                        ContentResolver.addPeriodicSync(createSyncAccount(getApplicationContext()), AUTHORITY, new Bundle(), 360);
+
+
+
+                      //  ContentResolver.setSyncAutomatically(createSyncAccount(getApplicationContext()), AUTHORITY, true);
+
+                       // ContentResolver.addPeriodicSync(createSyncAccount(getApplicationContext()), AUTHORITY, new Bundle(), 720);
 
                         controller.insertUser(queryValues, createSyncAccount(getApplicationContext()), AUTHORITY, extras);
 
@@ -247,52 +270,11 @@ public class Five extends ActionBarActivity {
 
                         setResult(RESULT_OK, data);
 
-                       /* final Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.custom);
-                        dialog.setTitle("Scan Barcode");
-                       // final ImageView myImage = (ImageView) dialog.findViewById(R.id.image);
-                        //byte[] decodedByte = Base64.decode(barcodeImage, 0);
-                        //Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-                        //myImage.setImageBitmap(bitmap);
-
-                        Button print = (Button) dialog.findViewById(R.id.print);
-                        Button home = (Button) dialog.findViewById(R.id.returnButton);
-
-                        *//*print.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                String id = sharedPreferences.getString("tagnumber", DEFAULT);
-                                editor.commit();
-                                //controller.updateBarcodeStatus(id);
-                                Toast customtoast = new Toast(getBaseContext());
-                                customtoast = Toast.makeText(getBaseContext(), "Confirmed", Toast.LENGTH_SHORT);
-                                customtoast.setGravity(Gravity.CENTER, 0, 0);
-                                customtoast.show();
-
-                            }
-                        });*//*
-                        home.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.clear();
-                                editor.commit();
-
-                                Intent intent = new Intent(Five.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                        dialog.show();*/
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                                 context);
 
                         // set title
-                        alertDialogBuilder.setTitle("");
+                        alertDialogBuilder.setTitle("Registration Complete");
 
                         // set dialog message
                         alertDialogBuilder
@@ -316,6 +298,11 @@ public class Five extends ActionBarActivity {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // if this button is clicked, just close
                                         // the dialog box and do nothing
+                                        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.clear();
+                                        editor.commit();
+
                                         Intent intent = new Intent(Five.this, Login.class);
                                         startActivity(intent);
                                        // dialog.cancel();
@@ -365,6 +352,10 @@ public class Five extends ActionBarActivity {
                 Intent s = new Intent(this, ManualSync.class);
                 startActivity(s);
                 return true;
+            case R.id.action_exportdb:
+                Intent ex = new Intent(this, ExportDB.class);
+                startActivity(ex);
+                return true;
             case R.id.action_exit:
                 Intent e = new Intent(this, Login.class);
                 startActivity(e);
@@ -409,49 +400,36 @@ public class Five extends ActionBarActivity {
         super.onDestroy();
         unregisterReceiver(receiver);
     }
-
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
 
         //retrieve scan result
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
         if (scanningResult != null) {
             //we have a result
             String scanContent = scanningResult.getContents();
-            String scanFormat = scanningResult.getFormatName();
-
             tagnumber.setText(scanContent);
-        }/*else{
-            Toast toast = Toast.makeText(getApplicationContext(),"No scan data received!", Toast.LENGTH_SHORT);
-            toast.show();
         }
-*/
 
-            switch(requestCode){
-            case CAM_REQUEST:
-                switch (resultCode){
-                    case Activity.RESULT_OK:
-                        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                     imgTakenPhoto.setImageBitmap(thumbnail);
-                        ByteArrayOutputStream bos=new ByteArrayOutputStream();
-                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);
-                        img=bos.toByteArray();
-                       // String imageDataString1 = Base64.encodeToString(img,Base64.DEFAULT);
-
-
-                }break;
-            case Activity.RESULT_CANCELED:
-                finish();
-                //no blather
-                break;
-            default:
-              //  Toast.makeText(this, "Unexpected resultCode: " + resultCode, Toast.LENGTH_LONG).show();
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAM_REQUEST) {
+                // get the Uri for the captured image
+                picUri = data.getData();
+                performCrop();
+            }
+            // user is returning from cropping the image
+            else if (requestCode == CROP_PIC) {
+                // get the returned data
+                Bundle extras = data.getExtras();
+                // get the cropped bitmap
+                Bitmap thePic = extras.getParcelable("data");
+                imgTakenPhoto.setImageBitmap(thePic);
+                ByteArrayOutputStream bos=new ByteArrayOutputStream();
+                thePic.compress(Bitmap.CompressFormat.JPEG, 90, bos);
+                img=bos.toByteArray();
+            }
         }
     }
+
 
 
     class btnTakePhotoClicker implements Button.OnClickListener
@@ -480,24 +458,38 @@ public class Five extends ActionBarActivity {
 
     }
 
-    /*public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        //retrieve scan result
-        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 
-        if (scanningResult != null) {
-            //we have a result
-            String scanContent = scanningResult.getContents();
-            String scanFormat = scanningResult.getFormatName();
-
-            // display it on screen
-            formatTxt.setText("FORMAT: " + scanFormat);
-            contentTxt.setText("CONTENT: " + scanContent);
-
-        }else{
-            Toast toast = Toast.makeText(getApplicationContext(),"No scan data received!", Toast.LENGTH_SHORT);
+    /**
+     * this function does the crop operation.
+     */
+    private void performCrop() {
+        // take care of exceptions
+        try {
+            // call the standard crop action intent (the user device may not
+            // support it)
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            // indicate image type and Uri
+            cropIntent.setDataAndType(picUri, "image/*");
+            // set crop properties
+            cropIntent.putExtra("crop", "true");
+            // indicate aspect of desired crop
+            cropIntent.putExtra("aspectX", 1);
+            cropIntent.putExtra("aspectY", 1);
+            // indicate output X and Y
+            cropIntent.putExtra("outputX", 256);
+            cropIntent.putExtra("outputY", 256);
+            // retrieve data on return
+            cropIntent.putExtra("return-data", true);
+            // start the activity - we handle returning in onActivityResult
+            startActivityForResult(cropIntent, CROP_PIC);
+        }
+        // respond to users whose devices do not support the crop action
+        catch (ActivityNotFoundException anfe) {
+            Toast toast = Toast
+                    .makeText(this, "This device doesn't support the crop action!", Toast.LENGTH_SHORT);
             toast.show();
         }
-    }*/
+    }
 
     @Override
     public void onBackPressed() {

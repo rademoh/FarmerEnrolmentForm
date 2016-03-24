@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@drawable/mainbackground" android:layout_width="fill_parent" android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:gravity="center" android:id="@+id/header" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="50.0dip" android:layout_alignParentTop="true" />
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100.0dip"
+        android:layout_marginRight="100.0dip"
+        android:weightSum="1.0"
+        android:layout_below="@+id/header">
+
+
+        <Button android:textSize="20.0dip"
+            android:textColor="#ffffffff"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/btnExport"
+            android:background="#ff445523"
+            android:layout_width="300.0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="160.0dip"
+            android:text="Export DB"
+             />
+    </LinearLayout>
+    <ImageView android:id="@+id/backbutton"
+        android:background="@drawable/backarrow"
+        android:padding="50.0dip"
+        android:layout_width="45.0dip"
+        android:layout_height="45.0dip"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginTop="20.0dip"
+        android:onClick="backButton" />
+</RelativeLayout>

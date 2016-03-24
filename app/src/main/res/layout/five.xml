@@ -6,21 +6,21 @@
     android:background="@drawable/mainbackground"
     >
 
-    <!-- Header aligned to top -->
-    <RelativeLayout
-        android:id="@+id/header"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_action_bar_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:gravity="center" >
-
+        android:layout_height="160dp"
+        android:background="#445523"
+        android:minHeight="160dp"
+        android:elevation="10dp"
+        >
         <ImageView
-            android:layout_width="450dp"
-            android:layout_height="89dp"
-            android:background="@drawable/pfive" />
-    </RelativeLayout>
 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pgfive"
+            />
+    </android.support.v7.widget.Toolbar>
 
     <!-- Footer aligned to bottom -->
     <LinearLayout
@@ -33,7 +33,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="33dp"
         android:layout_marginRight="35dp"
-     >
+        >
 
         <ImageButton
             android:id="@+id/back4"
@@ -46,7 +46,7 @@
             android:id="@+id/next4"
             android:layout_width="300dp"
             android:layout_height="75dp"
-           
+
             android:background="@drawable/submitbutton" />
     </LinearLayout>
 
@@ -57,7 +57,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@id/footer"
-        android:layout_below="@id/header"
+        android:layout_below="@id/my_action_bar_toolbar"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp">
 
@@ -79,32 +79,32 @@
                 android:padding="3dp"
                 android:layout_marginTop="25dp"  />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right">
-
-            <EditText
-                android:layout_width="150dp"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tagnumber"
-                android:background="@drawable/textfieldimage"
-                android:layout_marginTop="5dp"
-                android:padding="20dp"
-                android:textColor="#e2e3df"
-                android:singleLine="true"
-                android:hint="Farmer ID"
-                android:textColorHint="#445523"/>
+                android:layout_gravity="right">
 
-            <Button
-                android:layout_width="100dp"
-                android:layout_height="55dp"
-                android:text="SCAN"
-                android:onClick="scanQR"
-                android:id="@+id/btn_qrcode" />
+                <EditText
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tagnumber"
+                    android:background="@drawable/textfieldimage"
+                    android:layout_marginTop="5dp"
+                    android:padding="20dp"
+                    android:textColor="#e2e3df"
+                    android:singleLine="true"
+                    android:hint="Farmer ID"
+                    android:textColorHint="#445523"/>
 
-        </LinearLayout>
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="55dp"
+                    android:text="SCAN"
+                    android:onClick="scanQR"
+                    android:id="@+id/btn_qrcode" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -119,14 +119,14 @@
 
 
             <ImageButton
-                    android:layout_width="60dp"
-                    android:layout_height="45dp"
-                    android:id="@+id/takepic"
-                    android:background="@drawable/photo"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_gravity="center"
-                    />
+                android:layout_width="60dp"
+                android:layout_height="45dp"
+                android:id="@+id/takepic"
+                android:background="@drawable/photo"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="center"
+                />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -144,7 +144,7 @@
 
 
                     />
-                </LinearLayout>
+            </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="240dp"

@@ -45,6 +45,8 @@ public class Login extends Activity {
 
                 // check if the Stored password matches with  Password entered by user
                 if (password.equals(storedPassword)) {
+
+
                     Toast customtoast = new Toast(getBaseContext());
                     customtoast = Toast.makeText(getBaseContext(), "Login Successfully", Toast.LENGTH_SHORT);
                     customtoast.setGravity(Gravity.CENTER, 0, 0);
