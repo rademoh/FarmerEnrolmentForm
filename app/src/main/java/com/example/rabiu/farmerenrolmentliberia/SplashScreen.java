@@ -28,10 +28,5 @@ public class SplashScreen extends Activity {
             }
         };
         startTimer.start();
-
-
-
-
-
-  }
+    }
 }

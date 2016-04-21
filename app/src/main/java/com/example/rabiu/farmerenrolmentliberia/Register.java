@@ -26,13 +26,7 @@ public class Register extends Activity implements AdapterView.OnItemSelectedList
     Spinner state, lga;
    ImageButton btnCreateAccount;
 
-
-   // String statesid,lgasid;
-
-
-    // GPSTracker class
-    GPSTracker gps;
-
+    Second second;
     DBFarmers controller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +34,6 @@ public class Register extends Activity implements AdapterView.OnItemSelectedList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
-///
         TextView loginScreen = (TextView) findViewById(R.id.link_to_login);
 
         // Listening to Login Screen link
@@ -72,20 +65,18 @@ public class Register extends Activity implements AdapterView.OnItemSelectedList
         btnCreateAccount=(ImageButton)findViewById(R.id.createadmin);
         loadSpinnerData();
 
-
-
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                String userName=editTextUserName.getText().toString();
-                String password=editTextPassword.getText().toString();
-                String fullName=editTextfullName.getText().toString();
-                String mobileNumber =editTextMobileNumber.getText().toString();
-                String confirmPassword=editTextConfirmPassword.getText().toString();
-                String statename =   state.getSelectedItem().toString();
-                String lganame =   lga.getSelectedItem().toString();
+                final String userName=editTextUserName.getText().toString();
+                final String password=editTextPassword.getText().toString();
+                final String fullName=editTextfullName.getText().toString();
+                final String mobileNumber =editTextMobileNumber.getText().toString();
+                final String confirmPassword=editTextConfirmPassword.getText().toString();
+                final String statename =   state.getSelectedItem().toString();
+                final String lganame =   lga.getSelectedItem().toString();
 
 
                 // check if any of the fields are vaccant
@@ -114,6 +105,14 @@ public class Register extends Activity implements AdapterView.OnItemSelectedList
                     customtoast.setGravity(Gravity.CENTER, 0, 0);
                     customtoast.show();
                     return;}
+
+                else if (!isValidCounty(statename)) {
+                    TextView errorText = (TextView) state.getSelectedView();
+                    errorText.setError("");
+                } else if (!isValidDistrict(lganame)) {
+                    TextView errorText = (TextView) lga.getSelectedView();
+                    errorText.setError("");
+                }
                 else
                 {
 
@@ -132,7 +131,6 @@ public class Register extends Activity implements AdapterView.OnItemSelectedList
 
 
                     editor.commit();
-
 
 
                     // Save the Data in Database
@@ -158,6 +156,20 @@ public class Register extends Activity implements AdapterView.OnItemSelectedList
         super.onDestroy();
 
         controller.close();
+    }
+    // validating county
+    private boolean isValidCounty(String pass) {
+        if (!pass.equals("[Select County]")) {
+            return true;
+        }
+        return false;
+    }
+    // validating district
+    private boolean isValidDistrict(String pass) {
+        if (!pass.equals("[Select District]")) {
+            return true;
+        }
+        return false;
     }
     /**
      * Function to load the spinner data from SQLite database

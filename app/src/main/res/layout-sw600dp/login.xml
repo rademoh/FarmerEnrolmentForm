@@ -17,6 +17,29 @@
             android:layout_height="40dp"
             android:background="@drawable/adminlogin" />
     </RelativeLayout>
+
+    <!-- Footer aligned to bottom -->
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="35dp"
+        >
+
+        <TextView
+            android:id="@+id/txet"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:text="@string/version_number"
+            android:gravity="center"
+            android:textColor="@color/whitetransparent"
+            />
+    </LinearLayout>
     <!-- Content will go here -->
     <LinearLayout
         android:layout_below="@+id/header"

@@ -70,7 +70,8 @@ public class ExportDB extends ActionBarActivity {
     }
 
     public void exportDB() {
-       prgDialog.show();
+
+        prgDialog.show();
 
         File sd = Environment.getExternalStorageDirectory();
         File data = Environment.getDataDirectory();
@@ -86,7 +87,9 @@ public class ExportDB extends ActionBarActivity {
             destination.transferFrom(source, 0, source.size());
             source.close();
             destination.close();
+
             prgDialog.hide();
+
             Toast.makeText(this, "DB Exported!", Toast.LENGTH_LONG).show();
         } catch(IOException e) {
             e.printStackTrace();

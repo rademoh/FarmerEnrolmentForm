@@ -73,7 +73,7 @@ public class Five extends ActionBarActivity {
     // The account name
     public static final String ACCOUNT = "farmersaccount";
     // Instance fields
-    Account mAccount;
+    Account mAccount ;
 
 
     DBFarmers controller = new DBFarmers(this);
@@ -123,6 +123,9 @@ public class Five extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.five);
+
+
+
 
         //        action bar toolbar
         Toolbar actionBarToolBar = (Toolbar) findViewById(R.id.my_action_bar_toolbar);
@@ -257,6 +260,21 @@ public class Five extends ActionBarActivity {
                         resolver.addPeriodicSync(createSyncAccount(getApplicationContext()), AUTHORITY, new Bundle(), 720);
 
 
+                        /*
+		 * BEGIN datasync
+		 */
+
+                       /* mAccount = new Account(ACCOUNT,ACCOUNT_TYPE);
+                        AccountManager accountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
+                        accountManager.addAccountExplicitly(mAccount, null, null);
+                        ContentResolver.setSyncAutomatically(mAccount,AUTHORITY, true);
+                        Bundle bundle = new Bundle();
+                        ContentResolver.requestSync(mAccount, AUTHORITY, bundle);*/
+		/*
+		 * END datasync
+		 */
+
+
 
 
 
@@ -298,14 +316,14 @@ public class Five extends ActionBarActivity {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // if this button is clicked, just close
                                         // the dialog box and do nothing
-                                        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                                       /* SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.clear();
                                         editor.commit();
 
                                         Intent intent = new Intent(Five.this, Login.class);
-                                        startActivity(intent);
-                                       // dialog.cancel();
+                                        startActivity(intent);*/
+                                        dialog.cancel();
                                     }
                                 });
 
@@ -315,7 +333,7 @@ public class Five extends ActionBarActivity {
                         // show it
                         alertDialog.show();
 
-                    }
+                   }
 
                 } else {
 

@@ -40,6 +40,8 @@
     <string name="action_exit">Exit</string>
     <string name="action_exportDB">Export DB</string>
 
+    <string name="version_number">v 1.5</string>
+
     <string-array name="title">
         <item>[Select Title]</item>
         <item>Mr</item>
@@ -115,6 +117,14 @@
         <item> Kra</item>
         <item> Lorma</item>
         <item> Kru</item>
+        <item> Kissi</item>
+        <item> Mendi</item>
+        <item> Mandingo</item>
+        <item> Krahn</item>
+        <item> Mano</item>
+        <item> Gio</item>
+        <item> Belle </item>
+        <item> Dai</item>
     </string-array>
 
     <string-array name = "education">

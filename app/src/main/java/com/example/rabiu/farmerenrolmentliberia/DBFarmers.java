@@ -32,8 +32,9 @@ public class DBFarmers extends SQLiteOpenHelper {
 
     public static final class DBFarmersContract {
         public static final String DB_NAME = "farmersrecordDB.db";
-       // public static final int VERSION = 18;
-       public static final int VERSION = 19;
+     //  public static final int VERSION = 18;
+    public static final int VERSION = 20;//1.5 version
+   //     public static final int VERSION = 21;//1.5 GRAND CAPE MOUNT ->Common wealth district
         private byte[] img=null;
 
         ///table for users
@@ -223,17 +224,16 @@ public class DBFarmers extends SQLiteOpenHelper {
 
         //// create state town
         public static final String CREATE_TABLE_TOWN = "CREATE TABLE " + TABLE_NAME_TOWN + " ("
-                + COLUMN_TOWNID + " VARCHAR(7) NOT NULL PRIMARY KEY , "
+                + COLUMN_TOWNID + " VARCHAR(4) NOT NULL PRIMARY KEY , "
                 + COLUMN_TOWNNAME + " VARCHAR(31), "
-                + COLUMN_DISTRICTID + " VARCHAR(11), "
-                + COLUMN_ELECTORALDISTRICT + " VARCHAR(19), "
-                + COLUMN_COUNTYID + " VARCHAR(9)) ";
+                + COLUMN_DISTRICTID + " VARCHAR(3), "
+                + COLUMN_COUNTYID + " VARCHAR(2)) ";
 
         //// create state VCR
         public static final String CREATE_TABLE_VCR = "CREATE TABLE " + TABLE_NAME_VCR + " ("
                 + COLUMN_VCR_CODE + " INTEGER(5) , "
                 + COLUMN_VCR_NAME + " VARCHAR(56), "
-                + COLUMN_TOWNID + " INTEGER(3), "
+                + COLUMN_TOWNID + " INTEGER(4), "
                 + COLUMN_DISTRICTID + " INTEGER(3), "
                 + COLUMN_ELECTORALDISTRICT + " VARCHAR(4), "
                 + COLUMN_COUNTYID + " INTEGER(2)) ";
@@ -302,7 +302,7 @@ public class DBFarmers extends SQLiteOpenHelper {
         try{
             inputStream = assetManager.open(dbname);
             while ((len = inputStream.read(buf)) != -1) {
-                System.out.println("No of lines read " +len);
+              //  System.out.println("No of lines read " +len);
                 outputStream.write(buf, 0, len);
             }
             outputStream.close();
@@ -316,7 +316,7 @@ public class DBFarmers extends SQLiteOpenHelper {
                 // TODO You may want to parse out comments here
                 if (sqlStatement.length() > 0) {
 
-                    System.out.println("No of Script read " + sqlStatement );
+                  //  System.out.println("No of Script read " + sqlStatement );
                     database.execSQL(sqlStatement + ";");
                 }
             }
@@ -375,7 +375,7 @@ public class DBFarmers extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         /// Get current time and date
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         Date date = new Date();
         String dateTime = dateFormat.format(date);
@@ -640,6 +640,7 @@ public String getUser(String userName){
      * @return
      */
     public String getSyncStatus(){
+
         String msg = null;
         if(this.dbSyncCount() == 0){
             msg = "SQLite and Remote MySQL DBs are in Sync!";
@@ -649,8 +650,8 @@ public String getUser(String userName){
         return msg;
     }
 
-    public String delete()
-    {
+    public String delete() {
+
         SQLiteDatabase database = this.getWritableDatabase();
         String msg = null;
         if(this.dbDeleteCount() == 0){
@@ -746,7 +747,7 @@ public String getUser(String userName){
             do {
 
                 String county_id = cursor.getString(0);
-                System.out.println("COUNTY_ID: " + county_id);
+               // System.out.println("COUNTY_ID: " + county_id);
 
                 String[] columnslga = {"district_name"};
                 Cursor cursors = db.query("district", columnslga, "county_id" + " = '" + county_id + "'", null, null, null, null);
@@ -757,7 +758,7 @@ public String getUser(String userName){
 
                         districtname.add(cursors.getString(0));
                         String lganames = cursors.getString(0);
-                        System.out.println( "LGA NAME: " + lganames);
+                      //System.out.println( "LGA NAME: " + lganames);
                     }while (cursors.moveToNext());
 
                 }
@@ -785,7 +786,7 @@ public String getUser(String userName){
             do {
 
                 String districtid = cursor.getString(0);
-                System.out.println("District ID: " + districtid);
+              //  System.out.println("District ID: " + districtid);
 
                 String[] columnward = {"town_name"};
                 Cursor cursors = db.query("town", columnward, "district_id" + " = '" + districtid + "'", null, null, null, null);
@@ -796,7 +797,7 @@ public String getUser(String userName){
 
                         areaname.add(cursors.getString(0));
                         String areanames = cursors.getString(0);
-                        System.out.println( "TOWN_NAME: " + areanames);
+                      ///  System.out.println( "TOWN_NAME: " + areanames);
                     }while (cursors.moveToNext());
 
                 }
@@ -865,7 +866,7 @@ public String getUser(String userName){
             do {
 
                 String lgaid = cursor.getString(0);
-                System.out.println("LGA ID: " + lgaid);
+               /// System.out.println("LGA ID: " + lgaid);
 
                 String[] columnward = {"wardname"};
                 Cursor cursors = db.query("wards", columnward, "lgaid" + " = '" + lgaid + "'", null, null, null, null);
@@ -876,7 +877,7 @@ public String getUser(String userName){
 
                         wardname.add(cursors.getString(0));
                         String wardnames = cursors.getString(0);
-                        System.out.println( "WARD NAME: " + wardnames);
+                       /// System.out.println( "WARD NAME: " + wardnames);
                     }while (cursors.moveToNext());
 
                 }

@@ -1,35 +1,32 @@
 package com.example.rabiu.farmerenrolmentliberia;
 
-//
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.text.ParseException;
-
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -63,7 +60,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         analytics = GoogleAnalytics.getInstance(this);
         analytics.setLocalDispatchPeriod(1800);
 
-        tracker = analytics.newTracker("UA-61976873-2"); // Replace with actual tracker/property Id
+        tracker = analytics.newTracker("UA-61976873-2"); //  tracker/property Id
         tracker.enableExceptionReporting(true);
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
@@ -115,14 +112,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 if (!isValidTitle(title_str)) {
                     TextView errorText = (TextView) title.getSelectedView();
                     errorText.setError("");
-                    //errorText.setTextColor(Color.RED);//just to highlight that this is an error
-                    // errorText.setText("my actual error text");//changes the selected item text to this
                 } else if (!isValidField(surname_str)) {
                     surname.setError("");
                 } else if (!isValidField(firstname_str)) {
                     firstname.setError("");
                 } else if (!checkDob(dob_str)) {
-                    doBirth.setError("Farmer must be above 16 years");
+                    doBirth.setError("Farmer must be above 18 years");
                 } else if (!isValidMobile(telephone_str)) {
                     telephone.setError("");
                 } else if (!isValidEdu(education_str)) {
@@ -196,20 +191,17 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         try {
             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            Date validDate = df.parse("01-01-2001");
+            Date validDate = df.parse("01-01-1997");
             Date inputDate = df.parse(dob_str);
 
             if (inputDate.before(validDate)) {
                 return true;
             }
-
-
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
             return  false;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
@@ -280,7 +272,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-///doesthis work
+
     }
 }
 

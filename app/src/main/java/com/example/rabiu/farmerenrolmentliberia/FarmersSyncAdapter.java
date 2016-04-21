@@ -13,6 +13,7 @@ import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -77,7 +79,7 @@ public class FarmersSyncAdapter extends AbstractThreadedSyncAdapter {
 
         mContentResolver = context.getContentResolver();
         init(context);
-        Log.d("RABIU", "syncadapter initialized");
+        Log.d("RABIU", "syncadapter initialized");//11:16 //11:31 //11:45 //12:0
 
 
     }
@@ -90,33 +92,34 @@ public class FarmersSyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
 
-        ArrayList<HashMap<String, String>> userList = controller.getAllUsers();
-        if (userList.size() != 0) {
-            if (controller.dbSyncCount() != 0) {
-                HttpClient client=new DefaultHttpClient();
-              //  HttpPost httpPost=new HttpPost("http://nonitravels.comli.com/farmersenrol/insertuser.php");
-                HttpPost httpPost=new HttpPost("http://41.206.23.39/LATA/Insert/insertuser.php");
+            ArrayList<HashMap<String, String>> userList = controller.getAllUsers();
+            if (userList.size() != 0) {
+                if (controller.dbSyncCount() != 0) {
+                    HttpClient client = new DefaultHttpClient();
 
-                L.m("onPerformSync Initiated...");
-                try {
-                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                    String jsonData=controller.composeJSONfromSQLite();
-                    nameValuePairs.add(new BasicNameValuePair("usersJSON",jsonData));
-                    L.m("" + jsonData + " was generated...");
-                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                    HttpResponse response=client.execute(httpPost);
-                    L.m(""+response.getStatusLine());
-                    String responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
-                    Intent intent = new Intent(ACTION);
-                    intent.putExtra(SYNC_OUTCOME, responseString);
-                    context.sendBroadcast(intent);
-                    L.m("Sync Completed...response "+responseString);
+                    HttpPost httpPost = new HttpPost("http://41.206.23.39/LATA/Insert/insertuser.php");
 
-                } catch (IOException e) {
-                    L.m(e.toString());
+                    L.m("onPerformSync Initiated...");
+
+                    try {
+                        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                        String jsonData = controller.composeJSONfromSQLite();
+                        nameValuePairs.add(new BasicNameValuePair("usersJSON", jsonData));
+                        L.m("" + jsonData + " was generated...");
+                        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                        HttpResponse response = client.execute(httpPost);
+                        L.m("" + response.getStatusLine());
+                        String responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
+                        Intent intent = new Intent(ACTION);
+                        intent.putExtra(SYNC_OUTCOME, responseString);
+                        context.sendBroadcast(intent);
+                        L.m("Sync Completed...response " + responseString);
+
+                    } catch (IOException e) {
+                        L.m(e.toString());
+                    }
+
                 }
-
             }
         }
-    }
 }

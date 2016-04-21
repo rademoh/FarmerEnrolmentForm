@@ -26,7 +26,6 @@ public class Second extends ActionBarActivity implements AdapterView.OnItemSelec
     Spinner maritalstatus,preferredlanguage, county,district,area,vcr;
     ImageButton back, next;
 
-  //  DBFarmers db = new DBFarmers(getApplicationContext());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
